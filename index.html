@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heart Notes — Aura of Man & Machine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                bg: "#f4f2f2",
+                black: "#141214",
+                ink: "#1d1a1d",
+                muted: "#7f7777",
+                line: "#ddd7d7",
+                white: "#fcfbfb",
+              },
+            },
+            fontFamily: {
+              serifDisplay: [
+                '"Bodoni MT"',
+                '"Didot"',
+                '"Times New Roman"',
+                "serif",
+              ],
+              sansElegant: [
+                '"Avenir Next"',
+                "Montserrat",
+                "Helvetica Neue",
+                "Arial",
+                "sans-serif",
+              ],
+            },
+            boxShadow: {
+              soft: "0 14px 40px rgba(20,18,20,0.08)",
+            },
+            letterSpacing: {
+              brandWide: ".28em",
+              brandWider: ".38em",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: #f4f2f2;
+        color: #141214;
+      }
+
+      .brand-logo,
+      .section-title {
+        font-family: "Bodoni MT", "Didot", "Times New Roman", serif;
+      }
+
+      .brand-logo {
+        line-height: 0.9;
+        letter-spacing: 0.05em;
+      }
+
+      .section-title {
+        letter-spacing: 0.06em;
+      }
+
+      .caps {
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+      }
+
+      .hero-banner {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1.75rem;
+        border: 1px solid rgba(20, 18, 20, 0.08);
+        min-height: 72vh;
+        background-image:
+          linear-gradient(
+            to top,
+            rgba(244, 242, 242, 0.88) 0%,
+            rgba(244, 242, 242, 0.62) 34%,
+            rgba(244, 242, 242, 0.16) 62%,
+            rgba(244, 242, 242, 0.06) 100%
+          ),
+          url("YOUR-BANNER-IMAGE-PATH-HERE");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        box-shadow: 0 18px 46px rgba(20, 18, 20, 0.07);
+      }
+
+      /* Very wide banner needs custom crop priority on mobile */
+      @media (max-width: 640px) {
+        .hero-banner {
+          min-height: 88vh;
+          background-size: auto 100%;
+          background-position: center top;
+        }
+      }
+
+      @media (min-width: 641px) and (max-width: 1023px) {
+        .hero-banner {
+          min-height: 82vh;
+          background-size: cover;
+          background-position: center center;
+        }
+      }
+
+      .hero-fade {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            to bottom,
+            rgba(244, 242, 242, 0.08),
+            rgba(244, 242, 242, 0.18)
+          ),
+          linear-gradient(
+            to top,
+            rgba(244, 242, 242, 0.96) 0%,
+            rgba(244, 242, 242, 0.72) 26%,
+            rgba(244, 242, 242, 0.16) 58%,
+            rgba(244, 242, 242, 0.06) 100%
+          );
+      }
+
+      .nav-link {
+        position: relative;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 0;
+        height: 1px;
+        background: #141214;
+        transition: width 0.25s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .accent-line {
+        height: 1px;
+        width: 92px;
+        background: rgba(20, 18, 20, 0.35);
+      }
+
+      .bottle-visual {
+        min-height: 200px;
+        background:
+          radial-gradient(
+            circle at top,
+            rgba(255, 255, 255, 0.78),
+            transparent 32%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(20, 18, 20, 0.04),
+            rgba(20, 18, 20, 0.02)
+          );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .bottle {
+        width: 88px;
+        height: 144px;
+        border-radius: 22px 22px 14px 14px;
+        position: relative;
+        margin: 0 auto;
+        box-shadow: 0 18px 28px rgba(20, 18, 20, 0.12);
+      }
+
+      .bottle::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 14px;
+        border-radius: 8px 8px 3px 3px;
+        background: inherit;
+      }
+
+      .bottle::after {
+        content: "H&N";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Bodoni MT", "Didot", "Times New Roman", serif;
+        font-size: 1rem;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .nitro {
+        background: linear-gradient(180deg, #050505, #242424 58%, #101010);
+      }
+
+      .carbon {
+        background: linear-gradient(180deg, #fafafa, #dddddd 55%, #efefef);
+      }
+
+      .carbon::after {
+        color: rgba(20, 18, 20, 0.92);
+      }
+
+      .special {
+        background: linear-gradient(180deg, #2d2626, #8f7b65 56%, #171212);
+      }
+
+      .combo-art {
+        position: relative;
+        height: 160px;
+        background: linear-gradient(135deg, #faf8f8, #eee9e9);
+        overflow: hidden;
+      }
+
+      .mini {
+        position: absolute;
+        bottom: 24px;
+        width: 50px;
+        height: 90px;
+        border-radius: 16px 16px 10px 10px;
+        box-shadow: 0 16px 24px rgba(20, 18, 20, 0.1);
+      }
+
+      .mini::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 9px;
+        border-radius: 6px 6px 2px 2px;
+        background: inherit;
+      }
+
+      .mini:nth-child(1) {
+        left: 16%;
+      }
+      .mini:nth-child(2) {
+        left: 41%;
+      }
+      .mini:nth-child(3) {
+        left: 66%;
+      }
+
+      .card-border {
+        border: 1px solid rgba(20, 18, 20, 0.08);
+      }
+    </style>
+  </head>
+  <body
+    class="font-sansElegant text-brand-black selection:bg-brand-black selection:text-white"
+  >
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 border-b border-brand-line/70 bg-brand-bg/90 backdrop-blur"
+    >
+      <div
+        class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6"
+      >
+        <a href="#top" class="leading-none">
+          <div class="brand-logo text-3xl sm:text-4xl">
+            H<span class="text-lg align-middle">&amp;</span>N
+          </div>
+          <div
+            class="mt-1 text-[10px] uppercase tracking-[0.34em] text-brand-muted"
+          >
+            Heart Notes
+          </div>
+        </a>
+
+        <nav
+          class="hidden items-center gap-7 text-[11px] uppercase tracking-[0.22em] md:flex"
+        >
+          <a href="#signature" class="nav-link">Perfumes</a>
+          <a href="#combos" class="nav-link">Combos</a>
+          <a href="#about" class="nav-link">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="top" class="px-4 pt-4 sm:px-6 sm:pt-6">
+      <div class="mx-auto max-w-6xl">
+        <div class="hero-banner">
+          <div class="hero-fade"></div>
+
+          <div
+            class="relative z-10 flex min-h-[72vh] items-end p-5 sm:p-8 lg:p-10"
+          >
+            <div class="max-w-xl">
+              <img
+                src="image.webp"
+                alt="Heart Notes"
+                class="h-12 w-auto sm:h-14 md:h-16"
+              />
+              <p class="caps mt-4 text-[10px] text-brand-muted">Car Perfume House</p>
+
+              <h1 class="brand-logo mt-3 text-5xl sm:text-6xl md:text-7xl">
+                H<span class="text-2xl sm:text-3xl md:text-4xl align-middle"
+                  >&amp;</span
+                >N
+              </h1>
+
+              <div class="mt-3 flex items-center gap-3">
+                <div class="accent-line"></div>
+                <p
+                  class="text-[11px] uppercase tracking-[0.34em] text-brand-ink"
+                >
+                  Heart Notes
+                </p>
+              </div>
+
+              <p
+                class="mt-5 max-w-md text-sm leading-7 text-brand-ink/85 sm:text-base"
+              >
+                Aura of Man &amp; Machine — car perfumes shaped with monochrome
+                elegance, modern luxury, and a quiet premium presence.
+              </p>
+
+              <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="#signature"
+                  class="rounded-full bg-brand-black px-6 py-3 text-center text-[11px] uppercase tracking-[0.24em] text-white transition hover:opacity-90"
+                >
+                  Explore Collection
+                </a>
+                <a
+                  href="#combos"
+                  class="rounded-full border border-brand-black px-6 py-3 text-center text-[11px] uppercase tracking-[0.24em] transition hover:bg-brand-black hover:text-white"
+                >
+                  View Combos
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile stats under banner -->
+        <div class="grid grid-cols-3 gap-3 pt-4 sm:pt-5">
+          <div
+            class="rounded-2xl bg-white px-4 py-4 text-center shadow-soft card-border"
+          >
+            <div class="brand-logo text-2xl">02</div>
+            <p
+              class="mt-1 text-[10px] uppercase tracking-[0.20em] text-brand-muted"
+            >
+              Core Scents
+            </p>
+          </div>
+          <div
+            class="rounded-2xl bg-white px-4 py-4 text-center shadow-soft card-border"
+          >
+            <div class="brand-logo text-2xl">01</div>
+            <p
+              class="mt-1 text-[10px] uppercase tracking-[0.20em] text-brand-muted"
+            >
+              Special Edition
+            </p>
+          </div>
+          <div
+            class="rounded-2xl bg-white px-4 py-4 text-center shadow-soft card-border"
+          >
+            <div class="brand-logo text-2xl">04</div>
+            <p
+              class="mt-1 text-[10px] uppercase tracking-[0.20em] text-brand-muted"
+            >
+              Combo Sets
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+      <div class="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-12">
+        <div>
+          <p class="caps text-[10px] text-brand-muted">Brand Language</p>
+          <h2 class="section-title mt-3 text-3xl sm:text-5xl">
+            Sharp typography. Soft luxury. Mechanical elegance.
+          </h2>
+        </div>
+
+        <div class="text-sm leading-8 text-brand-ink/80">
+          Heart Notes carries the same mood as the logo itself — high contrast,
+          graceful spacing, quiet confidence, and a modern premium finish. The
+          layout is intentionally simple, mobile-first, and focused on the
+          product experience.
+        </div>
+      </div>
+    </section>
+
+    <!-- Signature Perfumes -->
+    <section
+      id="signature"
+      class="border-y border-brand-line/70 bg-brand-white/70"
+    >
+      <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+        <div class="mb-10">
+          <p class="caps text-[10px] text-brand-muted">Signature Collection</p>
+          <h2 class="section-title mt-3 text-3xl sm:text-5xl">
+            Main Car Perfumes
+          </h2>
+          <p class="mt-4 max-w-2xl text-sm leading-7 text-brand-ink/78">
+            Two signature fragrances lead the collection, followed by one
+            distinct special edition.
+          </p>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <!-- Nitro Black -->
+          <article
+            class="overflow-hidden rounded-[1.6rem] bg-brand-bg shadow-soft card-border"
+          >
+            <div class="bottle-visual flex items-center justify-center">
+              <div class="bottle nitro"></div>
+            </div>
+            <div class="p-5 sm:p-6">
+              <p
+                class="text-[10px] uppercase tracking-[0.22em] text-brand-muted"
+              >
+                01 / Signature
+              </p>
+              <h3 class="section-title mt-3 text-2xl">Nitro Black</h3>
+              <p class="mt-3 text-sm leading-7 text-brand-ink/80">
+                Deep, bold, and clean. Designed for darker cabins, night drives,
+                and a stronger masculine presence.
+              </p>
+              <div class="mt-5 border-t border-brand-line pt-4">
+                <p
+                  class="text-[10px] uppercase tracking-[0.20em] text-brand-muted"
+                >
+                  Mood
+                </p>
+                <p class="mt-2 text-sm text-brand-ink">
+                  Smoky • Confident • Urban
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Carbon White -->
+          <article
+            class="overflow-hidden rounded-[1.6rem] bg-brand-bg shadow-soft card-border"
+          >
+            <div class="bottle-visual flex items-center justify-center">
+              <div class="bottle carbon"></div>
+            </div>
+            <div class="p-5 sm:p-6">
+              <p
+                class="text-[10px] uppercase tracking-[0.22em] text-brand-muted"
+              >
+                02 / Signature
+              </p>
+              <h3 class="section-title mt-3 text-2xl">Carbon White</h3>
+              <p class="mt-3 text-sm leading-7 text-brand-ink/80">
+                Crisp, airy, and refined. A polished scent direction for bright
+                interiors and a cleaner modern feel.
+              </p>
+              <div class="mt-5 border-t border-brand-line pt-4">
+                <p
+                  class="text-[10px] uppercase tracking-[0.20em] text-brand-muted"
+                >
+                  Mood
+                </p>
+                <p class="mt-2 text-sm text-brand-ink">
+                  Clean • Smooth • Modern
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Special Edition -->
+          <article
+            class="overflow-hidden rounded-[1.6rem] bg-brand-bg shadow-soft card-border md:col-span-2 xl:col-span-1"
+          >
+            <div class="bottle-visual flex items-center justify-center">
+              <div class="bottle special"></div>
+            </div>
+            <div class="p-5 sm:p-6">
+              <p
+                class="text-[10px] uppercase tracking-[0.22em] text-brand-muted"
+              >
+                03 / Limited
+              </p>
+              <h3 class="section-title mt-3 text-2xl">Atend Special Edition</h3>
+              <p class="mt-3 text-sm leading-7 text-brand-ink/80">
+                Richer, rarer, and more gift-oriented. A standout edition for
+                collectors, premium presentation, and special releases.
+              </p>
+              <div class="mt-5 border-t border-brand-line pt-4">
+                <p
+                  class="text-[10px] uppercase tracking-[0.20em] text-brand-muted"
+                >
+                  Mood
+                </p>
+                <p class="mt-2 text-sm text-brand-ink">
+                  Exclusive • Warm • Distinctive
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Combos -->
+    <section id="combos" class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+      <div class="mb-10">
+        <p class="caps text-[10px] text-brand-muted">Curated Sets</p>
+        <h2 class="section-title mt-3 text-3xl sm:text-5xl">
+          Four Combo Editions
+        </h2>
+        <p class="mt-4 max-w-2xl text-sm leading-7 text-brand-ink/80">
+          Since there are no combo images yet, these cards use minimal abstract
+          bottle visuals that stay consistent with the Heart Notes identity.
+        </p>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <article
+          class="overflow-hidden rounded-[1.6rem] bg-white shadow-soft card-border"
+        >
+          <div class="combo-art">
+            <div class="mini nitro"></div>
+            <div class="mini carbon"></div>
+            <div class="mini special"></div>
+          </div>
+          <div class="p-5">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-brand-muted">
+              Combo I
+            </p>
+            <h3 class="section-title mt-3 text-xl">Midnight Drive Trio</h3>
+            <p class="mt-3 text-sm leading-7 text-brand-ink/80">
+              A balanced mix of bold depth, clean freshness, and limited-edition
+              richness.
+            </p>
+          </div>
+        </article>
+
+        <article
+          class="overflow-hidden rounded-[1.6rem] bg-white shadow-soft card-border"
+        >
+          <div class="combo-art">
+            <div class="mini carbon"></div>
+            <div class="mini special"></div>
+            <div class="mini nitro"></div>
+          </div>
+          <div class="p-5">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-brand-muted">
+              Combo II
+            </p>
+            <h3 class="section-title mt-3 text-xl">Urban Contrast Set</h3>
+            <p class="mt-3 text-sm leading-7 text-brand-ink/80">
+              Built for variety — a daily-use set that shifts from bright to
+              dark with ease.
+            </p>
+          </div>
+        </article>
+
+        <article
+          class="overflow-hidden rounded-[1.6rem] bg-white shadow-soft card-border"
+        >
+          <div class="combo-art">
+            <div class="mini special"></div>
+            <div class="mini nitro"></div>
+            <div class="mini carbon"></div>
+          </div>
+          <div class="p-5">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-brand-muted">
+              Combo III
+            </p>
+            <h3 class="section-title mt-3 text-xl">Machine Luxe Pack</h3>
+            <p class="mt-3 text-sm leading-7 text-brand-ink/80">
+              A more premium combination with extra weight, warmth, and
+              statement value.
+            </p>
+          </div>
+        </article>
+
+        <article
+          class="overflow-hidden rounded-[1.6rem] bg-white shadow-soft card-border"
+        >
+          <div class="combo-art">
+            <div class="mini nitro"></div>
+            <div class="mini special"></div>
+            <div class="mini carbon"></div>
+          </div>
+          <div class="p-5">
+            <p class="text-[10px] uppercase tracking-[0.22em] text-brand-muted">
+              Combo IV
+            </p>
+            <h3 class="section-title mt-3 text-xl">Monochrome Prestige</h3>
+            <p class="mt-3 text-sm leading-7 text-brand-ink/80">
+              Inspired directly by the black-white-luxury visual language of the
+              brand.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Closing Statement -->
+    <section class="border-y border-brand-line/70 bg-brand-black text-white">
+      <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+        <p class="caps text-[10px] text-white/60">Heart Notes</p>
+        <h2
+          class="section-title mt-3 max-w-3xl text-3xl sm:text-5xl text-white"
+        >
+          A premium scent identity for the space between man, machine, and
+          movement.
+        </h2>
+        <p class="mt-5 max-w-2xl text-sm leading-8 text-white/78">
+          Designed to feel understated yet memorable, the collection is made for
+          people who want their car environment to carry elegance, control, and
+          presence.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-bg">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-center sm:px-6 md:flex-row md:items-center md:justify-between md:text-left"
+      >
+        <div>
+          <div class="brand-logo text-2xl">
+            H<span class="text-base align-middle">&amp;</span>N
+          </div>
+          <p
+            class="mt-1 text-[10px] uppercase tracking-[0.34em] text-brand-muted"
+          >
+            Aura of Man &amp; Machine
+          </p>
+        </div>
+        <p class="text-[11px] uppercase tracking-[0.18em] text-brand-muted">
+          Heart Notes — Car Perfume Collection
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
